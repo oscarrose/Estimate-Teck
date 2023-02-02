@@ -4,7 +4,7 @@ GO
 USE estimate_teck
 GO
 
-CREATE TABlE Estado_Empleado
+CREATE TABlE Estado_UsuarioEmpleado
 (
     Estado_Id INT NOT NULL IDENTITY CONSTRAINT Pk_Estado_Empleado PRIMARY KEY(Estado_Id),
     Estado VARCHAR(15) NOT NULL
@@ -22,7 +22,7 @@ GO
 CREATE TABLE Empleado
 (
     Empleado_Id INT NOT NULL IDENTITY(1,1) CONSTRAINT Pk_empleadoId PRIMARY KEY(empleado_Id),
-    Estado_Id INT NOT NULL CONSTRAINT FK_Estado_Empleado FOREIGN KEY REFERENCES Estado_Empleado(Estado_Id),
+    Estado_Id INT NOT NULL CONSTRAINT FK_Estado_UsuarioEmpleado FOREIGN KEY REFERENCES Estado_UsuarioEmpleado(Estado_Id),
     Cargo_Id INT NOT NULL CONSTRAINT Fk_Cargo_Empleado FOREIGN KEY REFERENCES Cargo(Cargo_Id),
     Nombre VARCHAR(25) NOT NULL,
     Apellido VARCHAR(25) NOT NULL,
