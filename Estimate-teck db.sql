@@ -44,3 +44,14 @@ CREATE TABLE Rol
     Fecha_creacion DATETIME DEFAULT GETDATE()
 );
 GO
+
+CREATE TABLE Usuario
+(
+	Usuario_Id INT NOT NULL IDENTITY CONSTRAINT Pk_Usuario PRIMARY KEY (Usuario_Id),
+	Empleado_Id INT NOT NULL CONSTRAINT Fk_EmpleadoUsuarioId FOREIGN KEY REFERENCES Empleado (Empleado_Id),
+	EstadoUsuario_Id INT NOT NULL CONSTRAINT FK_Estado_Usuario FOREIGN KEY REFERENCES Estado_UsuarioEmpleado(Estado_Id),
+	Id_rol INT NOT NULL CONSTRAINT Fk_RolUsuario FOREIGN KEY REFERENCES Rol (Id_rol),
+	Clave VARCHAR (max) NOT NULL,
+	fechaCreacion DATETIME DEFAULT GETDATE()
+);
+GO
