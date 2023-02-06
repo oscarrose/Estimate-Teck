@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace estimate_teck.Models
+{
+    public partial class Cliente
+    {
+        public Cliente()
+        {
+            Proyectos = new HashSet<Proyecto>();
+        }
+
+        public int ClienteId { get; set; }
+        public int TipoId { get; set; }
+        public string Nombre { get; set; } = null!;
+        public string Apellido { get; set; } = null!;
+        public string Identifiacion { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string? TelefonoRedidencial { get; set; }
+        public string Celular { get; set; } = null!;
+        public string Ciudad { get; set; } = null!;
+        public string Calle { get; set; } = null!;
+        public string Sector { get; set; } = null!;
+        public DateTime? FechaCreacion { get; set; }
+
+        public virtual TipoCliente Tipo { get; set; } = null!;
+        public virtual ICollection<Proyecto> Proyectos { get; set; }
+    }
+}
