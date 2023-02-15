@@ -13,9 +13,11 @@ CREATE TABlE Estado_Usuario_Empleado
 GO
 
 --INSERT ESTADO USUARIO
-select* from Estado_Usuario_Empleado
+
 INSERT INTO Estado_Usuario_Empleado (Estado) VALUES ('Activo');
+GO
 INSERT INTO Estado_Usuario_Empleado (Estado) VALUES ('Inactivo');
+GO
 
 
 
@@ -28,24 +30,27 @@ CREATE TABLE Cargo
 );
 GO
 -- INSERT CARGO--
-select* from cargo;
 
 
 INSERT INTO  Cargo (Nombre,Descripcion) VALUES ('Frontend Development', 'Programador que trabaja la parte de la
 aplicación  con la que interactua el usuario');
+GO
 
 INSERT INTO cargo (Nombre,Descripcion) VALUES ('Backend Development','Programador que se encarga de trabajar
 con la parte de la aplicacion que el usuario no puede ver');
+GO
 
 INSERT INTO cargo (Nombre,Descripcion) VALUES ('Full-Stacks Development','Programador que trabaja todos los 
 aspectos de una aplicación, incluidos Frontend y backend');
+GO
 
 INSERT INTO cargo (Nombre,Descripcion) VALUES ('Mobile Development','Programador que trabaja las aplicaciones 
 Moviles');
+GO
 
 INSERT INTO cargo (Nombre,Descripcion) VALUES ('Diseñador UX','Es el profesional que gestiona la experiencia del usuario 
 con un producto digital. Su objetivo es que la interacción del usuario con el producto sea sencilla e intuitiva');
-
+GO
 
 CREATE TABLE Empleado
 (
@@ -73,11 +78,13 @@ CREATE TABLE Rol
 GO
 
 -- insert Roles 
-select*from Rol;
 
 INSERT INTO Rol(Nombre) VALUES ('Gerente de TIC');
+GO
 INSERT INTO Rol(Nombre) VALUES ('Encargado de proyectos');
+GO
 INSERT INTO Rol(Nombre) VALUES ('Gerente general');
+GO
 
 
 
@@ -101,12 +108,15 @@ CREATE TABLE TipoCliente
 );
 GO
 
-select * from TipoCliente
-INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Persona Fisica');
-INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Empresarial');
-INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Gubernamental');
-INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Sin requisito fiscal'); 
 
+INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Persona Fisica');
+GO
+INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Empresarial');
+GO
+INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Gubernamental');
+GO
+INSERT INTO TipoCliente(NombreTipo_Cliente) VALUES ('Sin requisito fiscal'); 
+GO
 
 CREATE TABLE Cliente
 (
