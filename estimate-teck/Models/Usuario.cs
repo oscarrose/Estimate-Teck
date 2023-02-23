@@ -19,6 +19,8 @@ namespace estimate_teck.Models
         public int IdRol { get; set; }
         public byte[] PasswordHast { get; set; } = null!;
         public byte[] PasswordSalt { get; set; } = null!;
+        public string EEmail { get; set; }
+
         public DateTime? FechaCreacion { get; set; }
 
         public virtual Empleado Empleado { get; set; } = null!;
