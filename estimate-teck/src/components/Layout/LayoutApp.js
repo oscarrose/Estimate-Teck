@@ -22,9 +22,9 @@ const LayoutApp = ({children}) => {
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed}/>
         <Content
           style={{
-            margin: "24px 16px",
-            padding: 6,
-            minHeight: 582,
+            margin: "24px 16px ",
+            padding: 0,
+            minHeight: 565,
             background: colorBgContainer,
           }}
           className="container mx-auto"
