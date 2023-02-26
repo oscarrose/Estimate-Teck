@@ -60,7 +60,7 @@ CREATE TABLE Empleado
     Nombre VARCHAR(25) NOT NULL,
     Apellido VARCHAR(25) NOT NULL,
     
-    VARCHAR(15) NOT NULL,
+    Identificacion VARCHAR(15) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     Telefono_Redidencial VARCHAR(15) NULL,
     Celular VARCHAR(15) NOT NULL,
@@ -121,9 +121,9 @@ GO
 
 CREATE TABLE Cliente
 (
-	Cliente_Id INT NOT NULL IDENTITY CONSTRAINT Pk_Cliente Primary key (Cliente_Id),
-	Tipo_Id INT NOT NULL CONSTRAINT Fk_TipoClienteId FOREIGN KEY REFERENCES TipoCliente (Tipo_Id),
-	Nombre VARCHAR(25) NOT NULL,
+Cliente_Id INT NOT NULL IDENTITY CONSTRAINT Pk_Cliente Primary key (Cliente_Id),
+Tipo_Id INT NOT NULL CONSTRAINT Fk_TipoClienteId FOREIGN KEY REFERENCES TipoCliente (Tipo_Id),
+Nombre VARCHAR(25) NOT NULL,
     Apellido VARCHAR(25) NOT NULL,
     Identificacion VARCHAR(15) NOT NULL,
     Email VARCHAR(255) NOT NULL,
