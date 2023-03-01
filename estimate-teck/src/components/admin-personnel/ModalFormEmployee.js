@@ -17,12 +17,9 @@ function ModalFormEmployee({
     form.resetFields();
   };
 
-  console.log("data", editEmployee);
-
   //Asginar los valores a editar
   const edit = () => {
     form.setFieldsValue({
-     
       nombre: editEmployee.nombre,
       apellido: editEmployee.apellido,
       identificacion: editEmployee.identificacion,
@@ -41,40 +38,40 @@ function ModalFormEmployee({
 
   //Para las peticciones de crear y actualizar
   const onSubmit = async (values) => {
-    console.log("valores enviados", values);
     if (!editEmployee) {
-      console.log("aqui guardar");
+     
       await CallApi.post("Empleados/CreateEmployee", values)
         .then((res) => {
-          setDataEmployee((prevData) => prevData.concat(res.data));
           setLoandingSave(false);
+          message.success("Registrado correctamente");
+          setDataEmployee((prevData) => prevData.concat(res.data));
           onReset();
         })
         .catch((error) => {
+          message.error(error.response.data);
+          
           setLoandingSave(false);
-          message.error("Error interno", error);
         });
     } else {
       const newValues = {
         ...edit(),
         ...values,
-        fechaCreacion:editEmployee.fechaCreacion,
-        empleadoId: editEmployee.empleadoId
+        fechaCreacion: editEmployee.fechaCreacion,
+        empleadoId: editEmployee.empleadoId,
       };
-      console.log("nuevos valores", newValues);
-      console.log("id", editEmployee.empleadoId);
       await CallApi.put(
         `Empleados/UpdateEmployee/${editEmployee.empleadoId}`,
         newValues
       )
         .then(() => {
+          message.success("Datos del empleado actualizados")
           setUpdateTableEmployee((prevData) => !prevData);
           setLoandingSave(false);
           setModalFormEmployee(false);
         })
         .catch((error) => {
           setLoandingSave(false);
-          message.error("Error interno", error);
+          message.error("Error interno", error.response.data);
         });
     }
   };
@@ -93,7 +90,7 @@ function ModalFormEmployee({
       >
         {editEmployee ? (
           <p className=" text-2xl text-center mb-6">
-            Actualizar dato del empleado
+            Actualizar datos del empleado
           </p>
         ) : (
           <p className=" text-2xl text-center mb-6">Crear nuevo empleado</p>
@@ -106,8 +103,6 @@ function ModalFormEmployee({
             autoComplete="on"
             form={form}
             setfieldsvalue={editEmployee !== null ? edit() : onReset()}
-
-
           >
             <Form.Item
               name="nombre"
@@ -147,8 +142,8 @@ function ModalFormEmployee({
                   message: "El identificación es requerido",
                 },
                 {
-                  min: 13,
-                  message: "Numero de cédula muy corto",
+                  max: 13,
+                  message: "Numero de cédula es muy largo",
                 },
               ]}
             >
@@ -280,7 +275,7 @@ function ModalFormEmployee({
                 Cancelar
               </Button>
             )}
-        
+
             <Button type="primary" htmlType="submit">
               Guardar
             </Button>
