@@ -1,6 +1,7 @@
 ﻿using estimate_teck.Data;
+using estimate_teck.DTO;
+using estimate_teck.Models;
 using estimate_teck.Servicies.Empleados;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,14 +19,96 @@ namespace estimate_teck.Controllers
             _servicesEmployee = servicesEmployee;
         }
 
-        [HttpGet("AllEmployee")]
-        public async Task<IActionResult> GetEmployee()
+        [HttpGet("GetAllEmployee")]
+        public async Task<IActionResult> GetAllEmployee()
         {
             if (_context.Empleados == null) return NotFound();
 
-            return Ok( await _servicesEmployee.GetEmployees());
+            return Ok( await _servicesEmployee.GetAllEmployees());
 
         }
+        [HttpPost("CreateEmployee")]
+        public async Task<ActionResult<Empleado>> CreateEmployee([FromBody] Empleado employee)
+        {
+            if (_context.Empleados == null)
+            {
+                return Problem("Entity set 'ibarffaaContext.Empleados'  is null.");
+            }
+            if (_servicesEmployee.EmployeeExists(employee.Identificacion))
+            {
+                return BadRequest("Empleado se encuentra registrado");
+            }
+            try
+            {
+                _context.Empleados.Add(employee);
+               await _context.SaveChangesAsync();
+                var resultEmpleado = new empleadoDto()
+                {
+                    EmpleadoId = employee.EmpleadoId,
+                    NombreCompleto = string.Concat(employee.Nombre, " ", employee.Apellido),
+                    Email = employee.Email,
+                    Identificacion = employee.Identificacion,
+                    TelefonoResidencial = employee.TelefonoResidencial,
+                    Celular = employee.Celular,
+                    Cargo = employee.Nombre,
+                    Direccion = String.Concat(employee.Ciudad, " ", employee.Sector, " ", employee.Calle),
+                    FechaCreacion = employee.FechaCreacion,
+                };
+                return Ok(resultEmpleado);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+           
+        }
+
+
+        // PUT: api/Empleados/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("UpdateEmployee/{id}")]
+        public async Task<IActionResult> PutEmployee(int id, [FromBody] Empleado employee )
+        {
+            try
+            {
+                if (!_servicesEmployee.EmployeeExists(employee.Identificacion))
+                {
+                    return NotFound();
+                }
+
+                if (id != employee.EmpleadoId)
+                {
+                    return BadRequest();
+                }
+                var DataEmployee = new Empleado()
+                {
+                    EmpleadoId = employee.EmpleadoId,
+                    Nombre= employee.Nombre,
+                    Apellido= employee.Apellido,
+                    CargoId = employee.CargoId,
+                    Email = employee.Email,
+                    EstadoId= employee.EstadoId,
+                    Identificacion = employee.Identificacion,
+                    TelefonoResidencial = employee.TelefonoResidencial,
+                    Calle = employee.Calle,
+                    Ciudad= employee.Ciudad,
+                    Sector = employee.Sector,
+                    Celular = employee.Celular,                   
+                    FechaCreacion = employee.FechaCreacion,
+                };
+
+                _context.Entry(DataEmployee).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+        }
     }
 }

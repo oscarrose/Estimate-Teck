@@ -13,19 +13,39 @@ namespace estimate_teck.Servicies.Empleados
             _context= context;
         }
 
-        public async Task<IEnumerable<empleadoDto>> GetEmployees()
+        public bool EmployeeExists(string identificacion)
+        {
+            return (_context.Empleados?.Any(e => e.Identificacion == identificacion)).GetValueOrDefault();
+        }
+
+        public async Task<IEnumerable<empleadoDto>> GetAllEmployees()
         {
            
             var resultEmployee = await
                 (
-                from empleoyee in _context.Empleados
-                join cargo in _context.Cargos on empleoyee.CargoId equals cargo.CargoId
+                from employee in _context.Empleados
+                join cargo in _context.Cargos on employee.CargoId equals cargo.CargoId
+                join statusEmployee in _context.EstadoUsuarioEmpleados on employee.EstadoId equals statusEmployee.EstadoId
                 select new empleadoDto
                 {
+                    EmpleadoId= employee.EmpleadoId,   
+                    NombreCompleto= string.Concat(employee.Nombre," ", employee.Apellido),
+                    Nombre= employee.Nombre,
+                    Estado=statusEmployee.Estado,
+                    EstadoId= statusEmployee.EstadoId,
+                    Apellido= employee.Apellido,
+                    Calle= employee.Calle,
+                    Sector= employee.Sector,
+                    Ciudad= employee.Ciudad,
+                   CargoId= employee.CargoId,
+                    Email= employee.Email,
+                    Identificacion= employee.Identificacion,
+                    TelefonoResidencial = employee.TelefonoResidencial,
+                    Celular= employee.Celular,
                     Cargo = cargo.Nombre,
-                   /* Nombre = empleoyee.Nombre.ToString(),
-                    Apellido= empleoyee.Apellido.ToString(),*/
-                    NombreCompleto= string.Concat(empleoyee.Nombre, empleoyee.Apellido)
+                    Direccion=String.Concat(employee.Ciudad," ", employee.Sector," ", employee.Calle),
+                    FechaCreacion= employee.FechaCreacion,
+                   
 
                 }).ToListAsync();
             return resultEmployee;
