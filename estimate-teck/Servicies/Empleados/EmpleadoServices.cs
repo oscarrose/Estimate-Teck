@@ -18,6 +18,11 @@ namespace estimate_teck.Servicies.Empleados
             return (_context.Empleados?.Any(e => e.Identificacion == identificacion)).GetValueOrDefault();
         }
 
+        public bool EmployeeIdExists(int id)
+        {
+            return (_context.Empleados?.Any(e => e.EmpleadoId == id)).GetValueOrDefault();
+        }
+
         public async Task<IEnumerable<empleadoDto>> GetAllEmployees()
         {
            
@@ -31,22 +36,21 @@ namespace estimate_teck.Servicies.Empleados
                     EmpleadoId= employee.EmpleadoId,   
                     NombreCompleto= string.Concat(employee.Nombre," ", employee.Apellido),
                     Nombre= employee.Nombre,
-                    Estado=statusEmployee.Estado,
+                    Apellido = employee.Apellido,
+                    Estado =statusEmployee.Estado,
                     EstadoId= statusEmployee.EstadoId,
-                    Apellido= employee.Apellido,
                     Calle= employee.Calle,
                     Sector= employee.Sector,
                     Ciudad= employee.Ciudad,
-                   CargoId= employee.CargoId,
-                    Email= employee.Email,
+                    Direccion = String.Concat(employee.Ciudad, " ", employee.Sector, " ", employee.Calle),
+                    CargoId = employee.CargoId,
+                    Cargo = cargo.Nombre,
+                    Email = employee.Email,
                     Identificacion= employee.Identificacion,
                     TelefonoResidencial = employee.TelefonoResidencial,
                     Celular= employee.Celular,
-                    Cargo = cargo.Nombre,
-                    Direccion=String.Concat(employee.Ciudad," ", employee.Sector," ", employee.Calle),
                     FechaCreacion= employee.FechaCreacion,
-                   
-
+                 
                 }).ToListAsync();
             return resultEmployee;
         }

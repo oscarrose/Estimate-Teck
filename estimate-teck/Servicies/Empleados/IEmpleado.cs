@@ -9,5 +9,8 @@ namespace estimate_teck.Servicies.Empleados
 
         // Method for check exists the employee
         bool EmployeeExists(string identificacion);
+
+        // Method for check exists the employee
+        bool EmployeeIdExists(int id);
     }
 }
