@@ -1,12 +1,82 @@
 import React, { useState } from "react";
-import { Modal, Form, Input, Select, Spin, Button } from "antd";
-
+import { Modal, Form, Input, Select, Spin, Button, message } from "antd";
+import CallApi from "../../ServicesHttp/CallApi";
+import { cargo, estadoUsuarioEmpleado } from "./ItemsSelect";
 const { Option } = Select;
 
-function ModalFormEmployee({modalFormEmployee,setModalFormEmployee}) {
+function ModalFormEmployee({
+  setUpdateTableEmployee,
+  modalFormEmployee,
+  setModalFormEmployee,
+  setDataEmployee,
+  editEmployee,
+  setEditEmployee,
+}) {
   const [form] = Form.useForm();
   const onReset = () => {
     form.resetFields();
+  };
+
+  console.log("data", editEmployee);
+
+  //Asginar los valores a editar
+  const edit = () => {
+    form.setFieldsValue({
+     
+      nombre: editEmployee.nombre,
+      apellido: editEmployee.apellido,
+      identificacion: editEmployee.identificacion,
+      celular: editEmployee.celular,
+      email: editEmployee.email,
+      telefonoResidencial: editEmployee.telefonoResidencial,
+      cargoId: editEmployee.cargoId,
+      ciudad: editEmployee.ciudad,
+      calle: editEmployee.calle,
+      sector: editEmployee.sector,
+      estadoId: editEmployee.estadoId,
+    });
+  };
+
+  const [loandingSave, setLoandingSave] = useState(false);
+
+  //Para las peticciones de crear y actualizar
+  const onSubmit = async (values) => {
+    console.log("valores enviados", values);
+    if (!editEmployee) {
+      console.log("aqui guardar");
+      await CallApi.post("Empleados/CreateEmployee", values)
+        .then((res) => {
+          setDataEmployee((prevData) => prevData.concat(res.data));
+          setLoandingSave(false);
+          onReset();
+        })
+        .catch((error) => {
+          setLoandingSave(false);
+          message.error("Error interno", error);
+        });
+    } else {
+      const newValues = {
+        ...edit(),
+        ...values,
+        fechaCreacion:editEmployee.fechaCreacion,
+        empleadoId: editEmployee.empleadoId
+      };
+      console.log("nuevos valores", newValues);
+      console.log("id", editEmployee.empleadoId);
+      await CallApi.put(
+        `Empleados/UpdateEmployee/${editEmployee.empleadoId}`,
+        newValues
+      )
+        .then(() => {
+          setUpdateTableEmployee((prevData) => !prevData);
+          setLoandingSave(false);
+          setModalFormEmployee(false);
+        })
+        .catch((error) => {
+          setLoandingSave(false);
+          message.error("Error interno", error);
+        });
+    }
   };
 
   return (
@@ -15,25 +85,29 @@ function ModalFormEmployee({modalFormEmployee,setModalFormEmployee}) {
         width={800}
         centered
         open={modalFormEmployee}
-        onCancel={()=>setModalFormEmployee(false)}
-        footer={[
-          <Button key="Danger" type="primary" danger>
-            Cancelar
-          </Button>,
-          <Button key="submit" type="primary">
-            Guardar
-          </Button>,
-        ]}
+        onCancel={() => {
+          setModalFormEmployee(false);
+          setEditEmployee(null);
+        }}
+        footer={null}
       >
-        <p className=" text-2xl text-center mb-6">Crear nuevo empleado</p>
+        {editEmployee ? (
+          <p className=" text-2xl text-center mb-6">
+            Actualizar dato del empleado
+          </p>
+        ) : (
+          <p className=" text-2xl text-center mb-6">Crear nuevo empleado</p>
+        )}
 
-        <Spin spinning={false}>
+        <Spin spinning={loandingSave}>
           <Form
-            className="grid gap-2 grid-rows-5 grid-cols-2"
-            onFinish={null}
+            className="grid gap-2 grid-rows-6 grid-cols-2"
+            onFinish={onSubmit}
             autoComplete="on"
             form={form}
-            //setfieldsvalue={activo === false ? edit() : onReset()}
+            setfieldsvalue={editEmployee !== null ? edit() : onReset()}
+
+
           >
             <Form.Item
               name="nombre"
@@ -97,7 +171,7 @@ function ModalFormEmployee({modalFormEmployee,setModalFormEmployee}) {
             </Form.Item>
 
             <Form.Item
-              name="idCargo"
+              name="cargoId"
               label="Cargo"
               hasFeedback
               rules={[
@@ -107,8 +181,12 @@ function ModalFormEmployee({modalFormEmployee,setModalFormEmployee}) {
                 },
               ]}
             >
-              <Select placeholder=" Seleccione el cargo" allowClear>
-                <Option value="1">Frontend Development</Option>
+              <Select placeholder=" Seleccione el tipo de cargo" allowClear>
+                {cargo.map((data) => (
+                  <Option key={data.idCargo} value={data.idCargo}>
+                    {data.nombre}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -174,6 +252,38 @@ function ModalFormEmployee({modalFormEmployee,setModalFormEmployee}) {
             >
               <Input />
             </Form.Item>
+
+            {editEmployee && (
+              <Form.Item
+                name="estadoId"
+                label="Estado"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "El estado es requerido",
+                  },
+                ]}
+              >
+                <Select placeholder=" Seleccione el tipo de estado" allowClear>
+                  {estadoUsuarioEmpleado.map((data) => (
+                    <Option key={data.idEstado} value={data.idEstado}>
+                      {data.estado}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            )}
+
+            {!editEmployee && (
+              <Button type="primary" htmlType="reset" danger>
+                Cancelar
+              </Button>
+            )}
+        
+            <Button type="primary" htmlType="submit">
+              Guardar
+            </Button>
           </Form>
         </Spin>
       </Modal>

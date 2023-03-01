@@ -1,7 +1,12 @@
 import React from "react";
-import { Space, Table } from "antd";
-
-function TableEmpoyee() {
+import { Button, Space, Table } from "antd";
+import { EditOutlined } from "@ant-design/icons";
+function TableEmpoyee({
+  setModalFormEmployee,
+  dataEmployee,
+  loanding,
+  setEditEmployee,
+}) {
   const columns = [
     {
       title: "Nombre",
@@ -14,24 +19,29 @@ function TableEmpoyee() {
     {
       title: "Identificación",
       dataIndex: "identificacion",
+      width: 127,
+    },
+    {
+      title: "Estado",
+      dataIndex: "estado",
+      width: 90
     },
     {
       title: "Teléfono residencial",
       dataIndex: "telefonoResidencial",
+      width: 110,
     },
     {
       title: "Celular",
       dataIndex: "celular",
+      width: 110,
     },
     {
       title: "Cargo",
       dataIndex: "cargo",
+      width: 127,
     },
-    {
-      title: "Cargo",
-      dataIndex: "idCargo",
-      hidden: true,
-    },
+
     {
       title: "Dirección",
       dataIndex: "direccion",
@@ -39,32 +49,42 @@ function TableEmpoyee() {
     {
       title: "Fecha creación",
       dataIndex: "fechaCreacion",
+      width: 127,
     },
     {
       title: "Acciones",
+      width: 90,
       render: (record) => (
         <Space size="middle">
-          <a className="btnnavega" onClick={() => {}}>
-            Modificar
-          </a>
+          <Button
+            type="link"
+            onClick={() => {
+              setEditEmployee(record);
+              setModalFormEmployee(true);
+            }}
+          >
+            <EditOutlined />
+          </Button>
         </Space>
       ),
     },
   ].filter((item) => !item.hidden);
 
+  //const{dataEmployee,loanding}=useModuleAdminPersonnel();
+
   return (
     <div>
       <Table
         columns={columns}
-        // dataSource={data}
+        dataSource={dataEmployee}
+        loading={loanding}
         rowKey={(record) => record.idEmpleado}
         pagination={{
           pageSize: 10,
         }}
-        /*   scroll={{
-          y: 300,
-        }} */
-        //loading={loanding}
+        scroll={{
+          y: 360,
+        }}
       />
     </div>
   );
