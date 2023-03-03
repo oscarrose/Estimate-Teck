@@ -8,7 +8,7 @@ import AppRouter from "./AppRouter";
 import IndexAdminPersonnel from "./components/admin-personnel/IndexAdminPersonnel";
 import indexEstimate from "./components/estimate/indexEstimate";
 import IndexTariff from "./components/Tariff/IndexTariff";
-import indexClient from "./components/client/indexClient";
+import IndexAdminClient from "./components/client/IndexAdminClient";
 const ControllerRouter = () => {
   return (
     <Routes>
@@ -18,7 +18,7 @@ const ControllerRouter = () => {
       <Route path="/admin-personnel" element={<AppRouter component={IndexAdminPersonnel} />}/>
       <Route path="/estimate" element={<AppRouter component={indexEstimate} />}/>
       <Route path="/tariff" element={<AppRouter component={IndexTariff}/>}/>
-      <Route path="/client" element={<AppRouter component={indexClient}/>}/>
+      <Route path="/client" element={<AppRouter component={IndexAdminClient}/>}/>
     </Routes>
   );
 };

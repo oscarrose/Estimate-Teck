@@ -1,12 +1,14 @@
 import React from "react";
 import { Button, Space, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-function TableEmpoyee({
-  setModalFormEmployee,
-  dataEmployee,
-  loanding,
-  setEditEmployee,
+
+function TableClient({
+  dataClient,
+  loading,
+  setControlFormClient,
+  controlFormClient,
 }) {
+
   const columns = [
     {
       title: "Nombre",
@@ -17,14 +19,14 @@ function TableEmpoyee({
       dataIndex: "email",
     },
     {
-      title: "Identificación",
-      dataIndex: "identificacion",
+      title: "Tipo",
+      dataIndex: "tipo",
       width: 127,
     },
     {
-      title: "Estado",
-      dataIndex: "estado",
-      width: 90
+      title: "Identificación",
+      dataIndex: "identificacion",
+      width: 127,
     },
     {
       title: "Teléfono residencial",
@@ -36,15 +38,11 @@ function TableEmpoyee({
       dataIndex: "celular",
       width: 110,
     },
-    {
-      title: "Cargo",
-      dataIndex: "cargo",
-      width: 127,
-    },
 
     {
       title: "Dirección",
       dataIndex: "direccion",
+      width: 127,
     },
     {
       title: "Fecha creación",
@@ -59,8 +57,11 @@ function TableEmpoyee({
           <Button
             type="link"
             onClick={() => {
-              setEditEmployee(record);
-              setModalFormEmployee(true);
+              setControlFormClient({
+                ...controlFormClient,
+                visible: true,
+                dataEdit: record,
+              });
             }}
           >
             <EditOutlined />
@@ -68,14 +69,15 @@ function TableEmpoyee({
         </Space>
       ),
     },
-  ].filter((item) => !item.hidden);
+  ];
+
   return (
     <div>
       <Table
         columns={columns}
-        dataSource={dataEmployee}
-        loading={loanding}
-        rowKey={(record) => record.idEmpleado}
+        dataSource={dataClient}
+        loading={loading}
+        rowKey={(record) => record.clientId}
         pagination={{
           pageSize: 10,
         }}
@@ -87,4 +89,4 @@ function TableEmpoyee({
   );
 }
 
-export default TableEmpoyee;
+export default TableClient;
