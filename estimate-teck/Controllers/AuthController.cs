@@ -69,7 +69,8 @@ namespace estimate_teck.Controllers
             List<Claim> claims = new List<Claim>
             {
 
-                new Claim(ClaimTypes.Name, usuario.EEmail)
+                new Claim(ClaimTypes.Name, usuario.EEmail),
+                new Claim(ClaimTypes.Role, "Admin")
 
             };
 
