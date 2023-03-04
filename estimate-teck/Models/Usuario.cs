@@ -19,6 +19,8 @@ namespace estimate_teck.Models
         public int IdRol { get; set; }
         public byte[] PasswordHast { get; set; } = null!;
         public byte[] PasswordSalt { get; set; } = null!;
+
+        //Este campo fue agregado por mi ya que el campo Email de empleado no pude traerlo
         public string EEmail { get; set; }
 
         public DateTime? FechaCreacion { get; set; }

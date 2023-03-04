@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace estimate_teck.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
+    
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -19,6 +22,9 @@ namespace estimate_teck.Controllers
             _logger = logger; 
         }
 
+
+        //Aqui se agraga el rol de admin especificando que es quien tiene la autorizacion
+        //para acceder a ver esta informacion
         [HttpGet(Name = "GetWeatherForecast"), Authorize(Roles = "Admin")]
         public IEnumerable<WeatherForecast> Get()
         {

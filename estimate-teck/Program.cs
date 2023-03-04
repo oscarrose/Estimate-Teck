@@ -1,3 +1,4 @@
+global using estimate_teck.Servicies.UsuariosTk;
 using estimate_teck.Data;
 using estimate_teck.Servicies.Empleados;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +20,9 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("connectionEstima
 //Add injecting dependency
 
 builder.Services.AddScoped<IEmpleado, EmpleadoServices>();
+
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
