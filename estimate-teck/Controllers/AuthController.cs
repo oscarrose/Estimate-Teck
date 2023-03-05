@@ -15,6 +15,8 @@ namespace estimate_teck.Controllers
     {
 
         //private estimate_teckContext db = new estimate_teckContext();
+
+        //Usuario estatico en el que se almacena
         public static Usuario usuario = new Usuario();
         private readonly IUsuarioService _usuarioService;
         private readonly IConfiguration _configuration;
