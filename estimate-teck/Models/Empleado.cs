@@ -15,9 +15,9 @@ namespace estimate_teck.Models
         public int CargoId { get; set; }
         public string Nombre { get; set; } = null!;
         public string Apellido { get; set; } = null!;
-        public string Identifiacion { get; set; } = null!;
+        public string Identificacion { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string? TelefonoRedidencial { get; set; }
+        public string? TelefonoResidencial { get; set; }
         public string Celular { get; set; } = null!;
         public string Ciudad { get; set; } = null!;
         public string Calle { get; set; } = null!;

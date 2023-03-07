@@ -45,7 +45,7 @@ namespace estimate_teck.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog=estimate_teck;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=localhost; Database=estimate_teck;Trusted_Connection=True");
             }
         }
 
@@ -114,7 +114,7 @@ namespace estimate_teck.Data
                     .HasColumnName("Fecha_Creacion")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Identifiacion)
+                entity.Property(e => e.Identificacion)
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
@@ -126,10 +126,10 @@ namespace estimate_teck.Data
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TelefonoRedidencial)
+                entity.Property(e => e.TelefonoResidencial)
                     .HasMaxLength(15)
                     .IsUnicode(false)
-                    .HasColumnName("Telefono_Redidencial");
+                    .HasColumnName("Telefono_Residencial");
 
                 entity.Property(e => e.TipoId).HasColumnName("Tipo_Id");
 
@@ -274,14 +274,16 @@ namespace estimate_teck.Data
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EstadoId).HasColumnName("Estado_Id");
+                entity.Property(e => e.EstadoId)
+                    .HasColumnName("Estado_Id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
                     .HasColumnName("Fecha_Creacion")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Identifiacion)
+                entity.Property(e => e.Identificacion)
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
@@ -293,10 +295,10 @@ namespace estimate_teck.Data
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TelefonoRedidencial)
+                entity.Property(e => e.TelefonoResidencial)
                     .HasMaxLength(15)
                     .IsUnicode(false)
-                    .HasColumnName("Telefono_Redidencial");
+                    .HasColumnName("Telefono_Residencial");
 
                 entity.HasOne(d => d.Cargo)
                     .WithMany(p => p.Empleados)
