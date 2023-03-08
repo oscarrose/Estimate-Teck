@@ -49,6 +49,7 @@ namespace estimate_teck.Data
             }
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CaracteristicaSistema>(entity =>
@@ -115,7 +116,6 @@ namespace estimate_teck.Data
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Identificacion)
-                entity.Property(e => e.Identificacion)
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
@@ -128,10 +128,8 @@ namespace estimate_teck.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoResidencial)
-                entity.Property(e => e.TelefonoResidencial)
                     .HasMaxLength(15)
                     .IsUnicode(false)
-                    .HasColumnName("Telefono_Residencial");
                     .HasColumnName("Telefono_Residencial");
 
                 entity.Property(e => e.TipoId).HasColumnName("Tipo_Id");
@@ -280,16 +278,12 @@ namespace estimate_teck.Data
                 entity.Property(e => e.EstadoId)
                     .HasColumnName("Estado_Id")
                     .HasDefaultValueSql("((1))");
-                entity.Property(e => e.EstadoId)
-                    .HasColumnName("Estado_Id")
-                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
                     .HasColumnName("Fecha_Creacion")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Identificacion)
                 entity.Property(e => e.Identificacion)
                     .HasMaxLength(15)
                     .IsUnicode(false);
@@ -303,10 +297,8 @@ namespace estimate_teck.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoResidencial)
-                entity.Property(e => e.TelefonoResidencial)
                     .HasMaxLength(15)
                     .IsUnicode(false)
-                    .HasColumnName("Telefono_Residencial");
                     .HasColumnName("Telefono_Residencial");
 
                 entity.HasOne(d => d.Cargo)
