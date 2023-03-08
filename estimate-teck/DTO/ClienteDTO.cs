@@ -1,15 +1,13 @@
 ﻿namespace estimate_teck.DTO
 {
-    public class empleadoDto
+    public class ClienteDTO
     {
-        public int EmpleadoId { get; set; }
-        public string Estado { get; set; } = null!;
-        public int EstadoId { get; set; }
-        public string Cargo { get; set; } = null!;
-        public int CargoId { get; set; }
-        public string Nombre { get; set; } = null!;
-       public string Apellido { get; set; } = null!;
+        public int ClienteId { get; set; }
+        public int TipoId { get; set; }
+        public string Tipo { get; set; } = null!;
         public string NombreCompleto { get; set; } = null!;
+        public string Nombre { get; set; } = null!;
+        public string Apellido { get; set; } = null!;
         public string Identificacion { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string? TelefonoResidencial { get; set; }

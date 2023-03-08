@@ -25,6 +25,17 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
+
+//config the CORS
+builder.Services.AddCors(options=> options.AddPolicy(
+    name:"NgOriginWeb",
+    policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+
+    }));
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -63,6 +74,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//used CORS
+app.UseCors("NgOriginWeb");
 
 app.UseHttpsRedirection();
 
