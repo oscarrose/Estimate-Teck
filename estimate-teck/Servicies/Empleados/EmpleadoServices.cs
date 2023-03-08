@@ -20,7 +20,7 @@ namespace estimate_teck.Servicies.Empleados
 
         public bool EmployeeIdExists(int id)
         {
-            return (_context.Empleados?.Any(e => e.EmpleadoId == id)).GetValueOrDefault();
+            return (_context.Usuarios?.Any(e => e.EmpleadoId == id)).GetValueOrDefault();
         }
 
         public async Task<IEnumerable<empleadoDto>> GetAllEmployees()

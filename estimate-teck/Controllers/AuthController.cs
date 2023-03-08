@@ -38,15 +38,10 @@ namespace estimate_teck.Controllers
         [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userRegister)
         {
-            /* if (!_ServicesEmpleado.EmpleadoExists(user.IdEmpleado))
+             if (_usuarioService.EmployeeHasUser(userRegister.IdEmpleado))
              {
-                 return NotFound("Empleado no encontrado");
-             }*/
-
-            /* if (_userService.NameUserExists(user.NombreUsuario))
-             {
-                 return BadRequest("Existe el nombre de usuario");
-             }*/
+                 return BadRequest("Empleado tiene un usuario asignado");
+             }
             try
             {
                 CreatePasswordHash( out byte[] passwordHash, out byte[] passwordSalt);

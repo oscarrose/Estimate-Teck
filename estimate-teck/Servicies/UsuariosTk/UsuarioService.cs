@@ -13,6 +13,11 @@ namespace estimate_teck.Servicies.UsuariosTk
             _context = context;
         }
 
+        public bool EmployeeHasUser(int id)
+        {
+            return (_context.Usuarios?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
+        }
+
         public string GetMyName()
         {
             var result = string.Empty;

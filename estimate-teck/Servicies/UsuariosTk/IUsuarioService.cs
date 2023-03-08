@@ -10,7 +10,12 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         bool UserActive(int userId);
+
+        // Verification method if employee has user
+        bool EmployeeHasUser(int id);
     }
 
+
    
+
 }
