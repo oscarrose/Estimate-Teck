@@ -83,8 +83,6 @@ namespace estimate_teck.Controllers
             }
             catch (Exception)
             {
-                
-
                 throw;
             }
 
@@ -136,7 +134,6 @@ namespace estimate_teck.Controllers
           
             var currentRol = _context.Rols.Where(x => x.IdRol == usuario.IdRol).FirstOrDefault();
             var currentEmployee = _context.Empleados.Where(x => x.EmpleadoId == usuario.EmpleadoId).FirstOrDefault();
-
 
             if (currentRol == null)
             {
